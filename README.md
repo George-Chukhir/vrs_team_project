@@ -7,11 +7,9 @@ Potrebné vybavenie na vykonanie úlohy (tento zoznam slúži na realizáciu dvo
 Doska stm bude uchovávať zoznam UID kariet. Modul FRID-RC522 slúži ako čítačka UID z každej karty. Karty a modul FRID musia pracovať na rovnakej frekvencii. Následne cez SPI protokol získame UID z modulu a porovnáme ho so zoznamom v STM. V prípade úspešnej identifikácie privedieme napätie na príslušný pin, čím sa údajne otvorí bunka. 
 (Každá karta, kľúčenka alebo náramok má priradený unikátny kód a podľa toho sa dá zistiť ktorý modul je priložený k čítačke).<br>
 4. 4 ks infračervené senzory na detekciu prítomnosti predmetu v bunke (2 senzory na každú bunku pre spoľahlivejšie pokrytie celej plochy).<br> 
-5. 2 ks tlačidiel – simulácia stavu dverí. Napríklad keď je tlačidlo stlačené, dvere sú otvorené, keď je uvoľnené, sú zatvorené.<br> (deprecated, nahradené jazýčkovými spínačmi – pozri UPD nižšie)
+5. <del> 2 ks tlačidiel – simulácia stavu dverí. Napríklad keď je tlačidlo stlačené, dvere sú otvorené, keď je uvoľnené, sú zatvorené.</del><br> (deprecated, nahradené jazýčkovými spínačmi – pozri UPD nižšie)
 6. Bolo by vhodné mať 4 alebo aspoň 2 LED diódy na indikáciu stavu bunky. Ak sú k dispozícii len dve LED diódy, svietiaca dióda znamená, že bunka je voľná, a nesvietiaca, že je obsadená. Ak sú k dispozícii 4 LED diódy, na každú z dvoch buniek pripadajú 2 LED diódy rôznych farieb, ktoré indikujú stav bunky.<br>
 7. Odporové hodnoty by mali byť v rozmedzí 150–510 Ω, a to v rovnakom počte ako je počet LED diód. <br>
-8. Logovanie prístupov a synchronizácia času (UART + PC klient): Komunikácia medzi STM32 a PC prebieha prostredníctvom rozhrania UART (cez integrovaný ST-Link). Pri každom otvorení alebo zatvorení bunky odošle mikrokontrolér krátku správu o udalosti (napr. ID bunky a typ akcie). Klientska aplikácia v jazyku C++ bežiaca na PC tieto správy prijíma, priradí k nim presný aktuálny systémový čas počítača a výsledný záznam ukladá priamo do lokálneho súboru vo formáte JSON.
-9. Riadenie zásielok a evidencia (PC aplikácia v C++):** Systém rozlišuje medzi kartou kuriéra a kartami príjemcov. Po priložení karty kuriéra PC aplikácia vyhľadá voľnú bunku, umožní priradiť zásielku konkrétnemu príjemcovi a odošle príkaz na otvorenie bunky. Po vložení predmetu (potvrdené IR senzormi) a zatvorení dverí systém aktualizuje stav obsadenosti v JSON súbore (kto má v ktorej bunke uloženú zásielku) a zapíše udalosť do logu. Pri priložení karty príjemcu sa automaticky otvorí priradená bunka a po vybratí zásielky sa evidencia uvoľní.
 
 ### Rozdelenie úloh
 
